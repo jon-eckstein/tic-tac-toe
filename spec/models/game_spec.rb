@@ -60,6 +60,26 @@ RSpec.describe Game, :type => :model do
   it 'will return if row winner' do
     g = get_full_game
     g.winner?.should == true
+    g.winner.should == Game::X
+  end
+
+  it 'will return correct main diagonal winner' do
+    g = Game.new(3)
+    g[0,0] = Game::O
+    g[1,1] = Game::O
+    g[2,2] = Game::O
+    g.winner?.should == true
+    g.winner.should == Game::O
+  end
+
+  it 'will return correct column winner' do
+    g = Game.new(3)
+    g[0,1] = Game::X
+    g.winner?.should == false
+    g[1,1] = Game::X
+    g[2,1] = Game::X
+    g.winner?.should == true
+    g.winner.should == Game::X
   end
 
   def get_full_game

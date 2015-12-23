@@ -6,7 +6,6 @@ class Game
 
   def initialize(n=3, with_move_validation=true)
     @n=n
-    @move_count=0
     @total_moves = @n**2
     @winner = nil
     @validate_moves=with_move_validation
@@ -17,11 +16,14 @@ class Game
     @board
   end
 
+  def size
+    @n
+  end
+
   def []=(x,y,val)
     validate_value!(val)
     validate_num_moves! if @validate_moves
     @board[position(x,y)]=val
-    @move_count+=1
     check_winner(x,y,val)
   end
 
@@ -36,11 +38,47 @@ class Game
     end
   end
 
+  def row_state(index)
+    state = new_state
+    row(index).to_a.each_with_index do |val, index|
+      key = val.nil? ? :nils : val
+      state[key] << index
+    end
+    state
+  end
+
   def column(index)
     return enum_for(:column, index) unless block_given?
     0..@n.times do |i|
       yield self[i, index]
     end
+  end
+
+  def column_state(index)
+    state = new_state
+    column(index).to_a.each_with_index do |val, index|
+      key = val.nil? ? :nils : val
+      state[key] << index
+    end
+    state
+  end
+
+  def main_diagonal_state
+    state = new_state
+    main_diagonal.to_a.each_with_index do |val, index|
+      key = val.nil? ? :nils : val
+      state[key] << [index,index]
+    end
+    state
+  end
+
+  def anti_diagonal_state
+    state = new_state
+    anti_diagonal.to_a.each_with_index do |val, index|
+      key = val.nil? ? :nils : val
+      state[key] << [index,(@n-1)-index]
+    end
+    state
   end
 
   def main_diagonal
@@ -58,15 +96,19 @@ class Game
   end
 
   def game_over?
-    winner? || @total_moves == @move_count
+    winner? || @total_moves == move_count
   end
 
   def moves_left
-    @total_moves - @move_count
+    @total_moves - move_count
+  end
+
+  def move_count
+    @board.compact.count
   end
 
   def tie?
-    game_over? && @winner.blank?
+    game_over? && @winner.nil?
   end
 
   def winner?
@@ -75,6 +117,14 @@ class Game
 
   def winner
     @winner
+  end
+
+  def hash
+    @board.hash
+  end
+
+  def clone
+    Marshal::load(Marshal.dump(self))
   end
 
   private
@@ -101,7 +151,7 @@ class Game
   end
 
   def check_winner(x,y,val)
-    if row_winner?(x, val) || column_winner?(y, val) || diagonal_winner?(val)
+    if row_winner?(x, val) || column_winner?(y, val) || (check_diagonals?(x,y) ? diagonal_winner?(val) : false)
       @winner = val
     end
   end
@@ -117,6 +167,16 @@ class Game
   def diagonal_winner?(val)
     main_diagonal.all? {|i| i == val } || anti_diagonal.all? {|i| i == val }
   end
+
+  def check_diagonals?(x,y)
+    double_val = (@n-1)*2
+    [0,(@n-1), double_val].include?(x+y)
+  end
+
+  def new_state
+    {Game::X => [], Game::O => [], nils:[]}.clone
+  end
+
 
 
 end

@@ -1,0 +1,37 @@
+body {
+    padding-top: 50px;
+}
+.template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.tic-tac-toe-game {
+    padding: 40px 15px;
+    display: block;
+}
+
+.tic-tac-toe-box {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.border-right {
+    border-right-style: solid;
+}
+
+
+.border-left {
+    border-left-style: solid;
+}
+
+.border-bottom {
+    border-bottom-style: solid;
+}
+
+
+.border-top {
+    border-top-style: solid;
+}

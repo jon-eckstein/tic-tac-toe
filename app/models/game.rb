@@ -4,12 +4,16 @@ class Game
   X = -1
   O = 1
 
-  def initialize(n=3, with_move_validation=true)
+  def self.from_hash(hash)
+    return Game.new(hash['n'],hash['validates_moves'], hash['board'])
+  end
+
+  def initialize(n=3, with_move_validation=true, board=nil)
     @n=n
     @total_moves = @n**2
     @winner = nil
     @validate_moves=with_move_validation
-    @board = Array.new(@total_moves)
+    @board = board || Array.new(@total_moves)
   end
 
   def board

@@ -14,3 +14,5 @@ production:
   database: tic_tac_toe_production
   pool: 5
   timeout: 5000
+  username: hkviiumopmnxty
+  password:

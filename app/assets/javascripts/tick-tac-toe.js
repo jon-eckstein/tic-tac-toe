@@ -6,7 +6,7 @@
 $(function () {
     $('.tic-tac-toe-box').on("click",function(e){
         var elem = $(e.toElement);
-        if (elem.is(':empty')){
+        if (elem.is(':empty') && _game_over === false){
             var xy = elem.data('ttc-xy');
             elem.text(_player_token);
             getNextAIMove(xy);
@@ -30,6 +30,7 @@ $(function () {
            }
 
            if(msg.game_over){
+               _game_over = true;
                $('#game-result').removeClass('hidden');
                $('#game-result-' + msg.state).removeClass('hidden');
            }

@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151224205559) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "game_moves", force: :cascade do |t|
     t.integer  "x"
     t.integer  "y"
@@ -23,6 +26,6 @@ ActiveRecord::Schema.define(version: 20151224205559) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "game_moves", ["x", "y", "game_state", "end_type", "offense"], name: "index1", unique: true
+  add_index "game_moves", ["x", "y", "game_state", "end_type", "offense"], name: "index1", unique: true, using: :btree
 
 end

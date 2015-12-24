@@ -120,7 +120,7 @@ class Game
   end
 
   def hash
-    @board.hash
+    @board.to_s
   end
 
   def clone

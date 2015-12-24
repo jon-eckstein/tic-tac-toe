@@ -1,2 +1,2 @@
 g = Game.new(3, false)
-AIPlayerService.train_as_offense(g, Game::X, Game::O)
+AIPlayerService.train_as_offense(g)

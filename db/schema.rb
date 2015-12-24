@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224020911) do
+ActiveRecord::Schema.define(version: 20151224205559) do
 
   create_table "game_moves", force: :cascade do |t|
     t.integer  "x"
     t.integer  "y"
     t.string   "game_state"
     t.string   "end_type"
+    t.boolean  "offense"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "game_moves", ["x", "y", "game_state", "end_type"], name: "index_game_moves_on_x_and_y_and_game_state_and_end_type", unique: true
+  add_index "game_moves", ["x", "y", "game_state", "end_type", "offense"], name: "index1", unique: true
 
 end

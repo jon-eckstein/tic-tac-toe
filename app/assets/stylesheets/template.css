@@ -35,3 +35,7 @@ body {
 .border-top {
     border-top-style: solid;
 }
+
+.hidden {
+    display: none;
+}

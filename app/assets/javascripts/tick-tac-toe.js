@@ -9,16 +9,16 @@ $(function () {
         if (elem.is(':empty')){
             var xy = elem.data('ttc-xy');
             elem.text(_player_token);
-            getNextAiMove(xy);
+            getNextAIMove(xy);
         }
     });
 
     if(_offense === true && _didFirstMove === false){
-        getNextAiMove(null);
+        getNextAIMove(null);
         _didFirstMove = true;
     }
 
-   function getNextAiMove(xy){
+   function getNextAIMove(xy){
        $.ajax({
            method: "POST",
            url: "/game/move",

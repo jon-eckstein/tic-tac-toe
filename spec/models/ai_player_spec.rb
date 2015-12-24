@@ -49,7 +49,7 @@ RSpec.describe AIPlayer, :type => :model do
     player = AIPlayer.new(Game::X)
     game[0,0] = Game::X
     game[2,0] = Game::O
-    move = player.next_move(game)
+    move = player.next_move(game, true)
     puts move
   end
 

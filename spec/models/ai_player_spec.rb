@@ -53,4 +53,10 @@ RSpec.describe AIPlayer, :type => :model do
     puts h
   end
 
+  it 'will open the root_move correctly' do
+    thing = Marshal.load(File.read(Rails.root.join('db','moves_raw.dat').to_s))
+    puts thing
+
+  end
+
 end

@@ -69,56 +69,6 @@ class AIPlayer
     state[@their_marker].count == (@game.size-1) && state[@my_marker].count == 0
   end
 
-  def train_as_offense
-    #method here will somehow create a tree from all possible game combinations...
-    #will have to loop thru each possibility for each move...i mean, that's nuts...
-    #assume the starting point is 0,0...then I need all possible moves for the next player...
-    # 0,1  0,2  1,0  1,1  1,2  2,0  2,1  2,2
-    stack = []
-    win_moves = []
-    tie_moves = []
-    g = Game.new(3,false)
-    g[0,0] = @my_marker
-    my_turn = true
-    root_move = {state: g.hash, game:g, my_turn: my_turn, move:[0,0], next_moves:[]}
-    stack.push(root_move)
-    pop_count=0
-    while(move = stack.pop()) do
-      pop_count +=1
-      # puts "popping! -- stack size: #{stack.count}, pop_count #{pop_count}"
-      x=0
-      y=0
-      my_turn = !move[:my_turn]
-      while x <= move[:game].size-1 do
-        while y <= move[:game].size-1 do
-          if move[:game][x,y] == nil
-            # gm = Marshal::load(Marshal.dump(move[:game]))
-            gm = move[:game].clone
-            gm[x,y] = my_turn ? @my_marker : @their_marker
-            new_move = {state: gm.hash, game:gm, my_turn: my_turn, move:[x,y], next_moves:[], parent:move}
-            # puts gm.board.to_s
-            move[:next_moves] << new_move
-            if gm.game_over?
-              if gm.winner == @my_marker
-                win_moves << new_move
-              end
-              if gm.tie?
-                tie_moves << new_move
-              end
-            else
-              stack.push(new_move) unless gm.game_over?
-            end
-          end
-          y+=1
-        end
-        x+=1
-        y=0
-      end
-    end
-
-
-    return root_move, win_moves, tie_moves
-  end
 
   # def next_move_set(root_move, my_turn)
   #   if @game.game_over?

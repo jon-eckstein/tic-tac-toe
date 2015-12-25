@@ -45,6 +45,7 @@ body {
     border-top-width: 2px;
 }
 
+
 .hidden {
     display: none;
 }
@@ -55,4 +56,8 @@ body {
 
 .text-dim {
     opacity: 0.3;
+}
+
+.border-dim {
+    opacity:  0.3;
 }

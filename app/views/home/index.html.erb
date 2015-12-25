@@ -8,11 +8,10 @@
 
     <div class="container" style="width: 70%">
       <div class="row start_buttons" style="margin-top: 30px">
-        <div class="col-md-6"><%= link_to "New Game: AI Starts", root_path(offense:true), :method => "get" %></div>
-        <div class="col-md-6"><%= link_to "New Game: You Start", root_path, :method => "get" %></div>
+        <div class="col-md-6"><%= link_to "New Game: A.I. Starts", root_path(offense:true), :method => "get", class:'btn btn-info btn-sm', role:'button' %></div>
+        <div class="col-md-6"><%= link_to "New Game: You Start", root_path, :method => "get", class:'btn btn-info btn-sm' %></div>
       </div>
     </div>
-
 
     <table align="center" id="game" class="tic-tac-toe-game">
       <tr>
@@ -32,35 +31,13 @@
       </tr>
     </table>
 
-    <!--<div class="container">-->
-      <!--<div class="tic-tac-toe-game" id="game" >-->
-        <!--<div class="row">-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-right border-bottom" data-ttc-xy="0,0"></div>-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-bottom" data-ttc-xy="0,1"></div>-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-left border-bottom" data-ttc-xy="0,2"></div>-->
-        <!--</div>-->
-        <!--<div class="row">-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-right" data-ttc-xy="1,0"></div>-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box" data-ttc-xy="1,1"></div>-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-left" data-ttc-xy="1,2"></div>-->
-        <!--</div>-->
-        <!--<div class="row">-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-right border-top" data-ttc-xy="2,0"></div>-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-top" data-ttc-xy="2,1"></div>-->
-          <!--<div class="col-xs-6 col-md-4 tic-tac-toe-box border-left border-top" data-ttc-xy="2,2"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-
-
-
     <div id="game-result" class="result-msg hidden">
       <h4>Game Over!</h4>
       <div id="game-result-win" class="hidden">
         Computer Wins.
       </div>
       <div id="game-result-tie" class="hidden">
-        Computer Ties.
+        Tie Game.
       </div>
     </div>
 

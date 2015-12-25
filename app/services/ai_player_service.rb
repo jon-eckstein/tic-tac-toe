@@ -22,7 +22,7 @@ class AIPlayerService
       y=0
       my_turn = !move[:my_turn]
 
-      #if it's a critical move then we need to make it a no other moves should be considered in the path...
+      #if it's a critical move then we need to make it and no other moves should be considered in the path...
       if my_turn && (critical = find_first_critical(move[:game],player_marker, opponent_marker))
         gm = move[:game].clone
         gm[critical[0],critical[1]] = player_marker
@@ -46,15 +46,15 @@ class AIPlayerService
 
     end
 
-    puts 'combinations completed'
+    puts 'offense: combinations completed'
 
     GameMove.where(:offense=> offense).destroy_all
     save_game_states(win_moves, 'win', offense)
-    puts 'completed wins'
+    puts 'offense: completed wins'
     save_game_states(tie_moves, 'tie', offense)
-    puts 'completed ties'
+    puts 'offense: completed ties'
     save_game_states(lost_moves, 'loss', offense)
-    puts 'completed loss'
+    puts 'offense: completed loss'
   end
 
 
@@ -99,15 +99,15 @@ class AIPlayerService
 
     end
 
-    puts 'combinations completed'
+    puts 'defense: combinations completed'
 
     GameMove.where(:offense=> offense).destroy_all
     save_game_states(win_moves, 'win', offense)
-    puts 'completed wins'
+    puts 'defense: completed wins'
     save_game_states(tie_moves, 'tie', offense)
-    puts 'completed ties'
+    puts 'defense: completed ties'
     save_game_states(lost_moves, 'loss', offense)
-    puts 'completed loss'
+    puts 'defense: completed loss'
   end
 
 
@@ -151,7 +151,6 @@ class AIPlayerService
     0..game.size.times do |i|
       rs = game.row_state(i)
       critical_position = [i,rs[:nils].first]
-
       case
         when win_state?(rs, game, my_marker, their_marker)
           return critical_position

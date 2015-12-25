@@ -156,12 +156,6 @@ class Game
     end
   end
 
-  def check_winner1(x,y,val)
-    if row_winner?(x, val) || column_winner?(y, val) || (check_diagonals?(x,y) ? diagonal_winner?(val) : false)
-      @winner = val
-    end
-  end
-
   def check_winner(x,y,val)
     if row_winner?(x,val)
       @winner = val

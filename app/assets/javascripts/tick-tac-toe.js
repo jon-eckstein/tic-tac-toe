@@ -34,8 +34,10 @@ $(function () {
                $('#game-result').removeClass('hidden');
                $('#game-result-' + msg.state).removeClass('hidden');
 
-               if(msg.winning_series){
+               $('.box-text').addClass('text-dim');
+               //$('.tic-tac-toe-box').addClass('border-dim');c
 
+               if(msg.winning_series){
                    $('.box-text').addClass('text-dim');
 
                    msg.winning_series.map( function(item) {

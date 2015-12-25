@@ -6,9 +6,9 @@
 $(function () {
     $('.tic-tac-toe-box').on("click",function(e){
         var elem = $(e.toElement);
-        if (elem.is(':empty') && _game_over === false){
+        if (elem.find('.box-text').is(':empty') && _game_over === false){
             var xy = elem.data('ttc-xy');
-            elem.text(_player_token);
+            elem.find('.box-text').text(_player_token);
             getNextAIMove(xy);
         }
     });
@@ -26,13 +26,25 @@ $(function () {
        }).done(function( msg ) {
            if(msg.ai_move){
                var next_elem = $('#game').find('[data-ttc-xy="'+ msg.ai_move +'"]');
-               next_elem.text(_ai_token);
+               next_elem.find('.box-text').text(_ai_token);
            }
 
            if(msg.game_over){
                _game_over = true;
                $('#game-result').removeClass('hidden');
                $('#game-result-' + msg.state).removeClass('hidden');
+
+               if(msg.winning_series){
+
+                   $('.box-text').addClass('text-dim');
+
+                   msg.winning_series.map( function(item) {
+                       var e = $('#game').find('[data-ttc-xy="'+ item +'"]');
+                       e.find('.box-text').removeClass('text-dim');
+                   });
+
+               }
+
            }
 
        });

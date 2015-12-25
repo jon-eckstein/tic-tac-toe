@@ -24,6 +24,9 @@ class GameController < ApplicationController
       state = g.winner? && g.winner == my_token ? 'win' : 'tie'
       payload = {game_over: true, state: state}
       payload.merge!(ai_move: next_move.join(',')) if next_move
+      if state == 'win'
+        payload.merge!({winning_series: g.winning_series.map{|i| "#{i[0]},#{i[1]}"}})
+      end
       render json: payload
     else
       render json:{ai_move: next_move.join(',')}

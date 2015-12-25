@@ -6,6 +6,10 @@ body {
     text-align: center;
 }
 
+.start_buttons {
+    font-size: larger;
+}
+
 .tic-tac-toe-game {
     padding: 40px 15px;
     margin-top: 30px;
@@ -21,20 +25,24 @@ body {
 
 .border-right {
     border-right-style: solid;
+    border-right-width: 2px;
 }
 
 
 .border-left {
     border-left-style: solid;
+    border-left-width: 2px;
 }
 
 .border-bottom {
     border-bottom-style: solid;
+    border-bottom-width: 2px;
 }
 
 
 .border-top {
     border-top-style: solid;
+    border-top-width: 2px;
 }
 
 .hidden {
@@ -43,4 +51,8 @@ body {
 
 .result-msg {
     margin-top: 40px;
+}
+
+.text-dim {
+    opacity: 0.3;
 }

@@ -1,5 +1,3 @@
-require 'matrix'
-
 class Game
   X = -1
   O = 1
@@ -12,6 +10,7 @@ class Game
     @n=n
     @total_moves = @n**2
     @winner = nil
+    @winning_series = nil
     @validate_moves=with_move_validation
     @board = board || Array.new(@total_moves)
   end
@@ -123,6 +122,10 @@ class Game
     @winner
   end
 
+  def winning_series
+    @winning_series
+  end
+
   def hash
     @board.to_s
   end
@@ -151,12 +154,35 @@ class Game
     if @validate_moves && game_over?
       raise StandardError.new('Game over! Create new game to play again.')
     end
+  end
 
+  def check_winner1(x,y,val)
+    if row_winner?(x, val) || column_winner?(y, val) || (check_diagonals?(x,y) ? diagonal_winner?(val) : false)
+      @winner = val
+    end
   end
 
   def check_winner(x,y,val)
-    if row_winner?(x, val) || column_winner?(y, val) || (check_diagonals?(x,y) ? diagonal_winner?(val) : false)
+    if row_winner?(x,val)
       @winner = val
+      @winning_series = (0...@n).map {|i| [x, i] }
+    end
+
+    if column_winner?(y,val)
+      @winner = val
+      @winning_series = (0...@n).map {|i| [i, y] }
+    end
+
+    if check_diagonals?(x,y)
+      if main_diagonal_winner?(val)
+        @winner = val
+        @winning_series = (0...@n).map {|i| [i,i] }
+      end
+
+      if anti_diagonal_winner?(val)
+        @winner = val
+        @winning_series = (0...@n).map {|i| [i,(@n-1)-i] }
+      end
     end
   end
 
@@ -169,7 +195,15 @@ class Game
   end
 
   def diagonal_winner?(val)
-    main_diagonal.all? {|i| i == val } || anti_diagonal.all? {|i| i == val }
+    main_diagonal_winner?(val) || anti_diagonal_winner?(val)
+  end
+
+  def main_diagonal_winner?(val)
+    main_diagonal.all? {|i| i == val }
+  end
+
+  def anti_diagonal_winner?(val)
+    anti_diagonal.all? {|i| i == val }
   end
 
   def check_diagonals?(x,y)

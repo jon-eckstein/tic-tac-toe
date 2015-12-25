@@ -1,6 +1,7 @@
 class GameController < ApplicationController
 
   def move
+    sleep(0.35)
     g = Game.from_hash(session[:game])
     offense = session[:offense] == true || session[:offense] == "true"
     my_token = offense ? Game::X : Game::O

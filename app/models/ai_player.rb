@@ -32,13 +32,6 @@ class AIPlayer
 
   def educated_guess(game, offense, ties)
     if offense == false
-      if opponent_on_corner(game)
-        half = (game.size-1)/2
-        if game[half,half] == nil
-          return [half,half]
-        end
-      end
-
       if opponent_in_middle(game)
         corners(game).each do |corner|
           if game[corner[0], corner[1]] == nil
@@ -46,6 +39,13 @@ class AIPlayer
           end
         end
       end
+
+      #going in the middle is usually a safe bet....
+      half = (game.size-1)/2
+      if game[half,half] == nil
+        return [half,half]
+      end
+
       #else pick randomly...
       ties.to_a.sample
     else

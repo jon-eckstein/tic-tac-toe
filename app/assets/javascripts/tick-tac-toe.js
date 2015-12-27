@@ -13,11 +13,6 @@ $(function () {
         }
     });
 
-    if(_offense === true && _didFirstMove === false){
-        getNextAIMove(null);
-        _didFirstMove = true;
-    }
-
    function getNextAIMove(xy){
        $.ajax({
            method: "POST",
@@ -35,20 +30,21 @@ $(function () {
                $('#game-result-' + msg.state).removeClass('hidden');
 
                $('.box-text').addClass('text-dim');
-               //$('.tic-tac-toe-box').addClass('border-dim');c
 
                if(msg.winning_series){
-                   $('.box-text').addClass('text-dim');
-
                    msg.winning_series.map( function(item) {
                        var e = $('#game').find('[data-ttc-xy="'+ item +'"]');
                        e.find('.box-text').removeClass('text-dim');
                    });
-
                }
-
            }
-
        });
    }
+
+
+   if(_offense === true && _didFirstMove === false){
+        getNextAIMove(null);
+        _didFirstMove = true;
+   }
+
 });

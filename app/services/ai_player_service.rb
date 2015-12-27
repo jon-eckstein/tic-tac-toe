@@ -148,6 +148,8 @@ class AIPlayerService
   end
 
   def self.find_first_critical(game, my_marker, their_marker)
+    #return a win move right away, otherwise save the block last move and remove the first at the end..
+    last_block = nil
     0..game.size.times do |i|
       rs = game.row_state(i)
       critical_position = [i,rs[:nils].first]
@@ -155,7 +157,7 @@ class AIPlayerService
         when win_state?(rs, game, my_marker, their_marker)
           return critical_position
         when block_state?(rs, game, my_marker, their_marker)
-          return critical_position
+          last_block = critical_position
       end
 
       cs = game.column_state(i)
@@ -164,7 +166,7 @@ class AIPlayerService
         when win_state?(cs, game, my_marker, their_marker)
           return critical_position
         when block_state?(cs, game, my_marker, their_marker)
-          return critical_position
+          last_block =  critical_position
       end
     end
 
@@ -173,7 +175,7 @@ class AIPlayerService
       when win_state?(mds, game, my_marker, their_marker)
         return mds[:nils].first
       when block_state?(mds, game, my_marker, their_marker)
-        return mds[:nils].first
+        last_block =  mds[:nils].first
     end
 
     ads = game.anti_diagonal_state
@@ -181,10 +183,10 @@ class AIPlayerService
       when win_state?(ads, game, my_marker, their_marker)
         return ads[:nils].first
       when block_state?(ads, game, my_marker, their_marker)
-        return ads[:nils].first
+        last_block = ads[:nils].first
     end
 
-    nil
+    return last_block
   end
 
   def self.win_state?(state, game, my_marker, their_marker)

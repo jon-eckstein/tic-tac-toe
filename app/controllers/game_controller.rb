@@ -34,10 +34,4 @@ class GameController < ApplicationController
 
   end
 
-  def new
-    g = Game.new(3)
-    session[:game] = g
-    session[:offense] = params[:offense]
-  end
-
 end

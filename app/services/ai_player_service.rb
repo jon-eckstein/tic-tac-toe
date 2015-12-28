@@ -9,7 +9,7 @@ class AIPlayerService
     opponent_marker = Game::O
     offense=true
 
-    #first move...
+    #first move on offense is always [0,0] in order to simplify things.
     hash = game.hash
     game[0,0] = player_marker
     my_turn = true
@@ -17,7 +17,6 @@ class AIPlayerService
     stack.push(root_move)
 
     while(move = stack.pop()) do
-
       x=0
       y=0
       my_turn = !move[:my_turn]
@@ -29,6 +28,7 @@ class AIPlayerService
         new_move = {state: move[:game].hash, game:gm, my_turn:my_turn, move:[critical[0],critical[1]], parent:move}
         determine_end_state(gm, player_marker, opponent_marker, win_moves, tie_moves, lost_moves, stack, new_move)
       else
+        #otherwise add a node to the tree for every possible move combination in this round...
         while x <= move[:game].size-1 do
           while y <= move[:game].size-1 do
             if move[:game][x,y] == nil
@@ -81,6 +81,7 @@ class AIPlayerService
         new_move = {state: move[:game].hash, game:gm, my_turn:my_turn, move:[critical[0],critical[1]], parent:move}
         determine_end_state(gm, player_marker, opponent_marker, win_moves, tie_moves, lost_moves, stack, new_move)
       else
+        #otherwise add a node to the tree for every possible move combination in this round...
         while x <= move[:game].size-1 do
           while y <= move[:game].size-1 do
             if move[:game][x,y] == nil
@@ -148,7 +149,7 @@ class AIPlayerService
   end
 
   def self.find_first_critical(game, my_marker, their_marker)
-    #return a win move right away, otherwise save the block last move and remove the first at the end..
+    #return a win move right away, otherwise save the last blocking move and return it at the end.
     last_block = nil
     0..game.size.times do |i|
       rs = game.row_state(i)
